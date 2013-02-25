@@ -4,4 +4,4 @@
 
 All files should be put to `~/.config/awesome` to make it work.
 
-[Awesome]: http://awesome.naquadah.org/ "awesome window manager"
+[1]: http://awesome.naquadah.org/ "awesome window manager"
