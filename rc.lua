@@ -16,7 +16,7 @@ local function loadrc(name)
     local result
 
     -- Which file?
-    local path = awful.util.getdir("config") .. "/" .. name .. ".lua"
+    local path = awful.util.getdir("config") .. "/rc/" .. name .. ".lua"
 
     success, result = pcall(function () return dofile(path) end)
     if not success then
