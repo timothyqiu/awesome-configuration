@@ -1,5 +1,5 @@
 local awful     = require "awful"
-local beautiful = require "awful"
+local beautiful = require "beautiful"
 awful.rules = require "awful.rules"
 
 clientkeys = awful.util.table.join(
