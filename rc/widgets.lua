@@ -1,5 +1,6 @@
 local awful     = require "awful"
 local beautiful = require "beautiful"
+local naughty   = require "naughty"
 local vicious   = require "vicious"
 local wibox     = require "wibox"
 
@@ -23,8 +24,26 @@ end
 local separator = wibox.widget.textbox()
 separator:set_markup(' <span color="' .. beautiful.fg_widget_sep .. '" size="small">⋆</span> ')
 
-local batwidget = wibox.widget.textbox()
-vicious.register(batwidget, vicious.widgets.bat, format_kv("Bat: ", "$2%"), 60, "BAT0")
+local batwidget = { widget = wibox.widget.textbox() }
+vicious.register(batwidget.widget, vicious.widgets.bat,
+    function (widget, args)
+        local color = beautiful.fg_widget_value
+        local state = args[1]   -- battery state
+        local level = args[2]   -- currenty battery charge level
+        if level < 10 and state == '-' then
+            batwidget.lastid = naughty.notify({
+                title = "Battery low!",
+                preset = naughty.config.presets.critical,
+                timeout = 20,
+                text = "Battery level is currently " .. level .. "%.\n" ..
+                       args[3] .. " left before running out of power.",
+                replaces_id = batwidget.lastid
+            }).id
+        end
+        return format_kv('Bat: ', level .. "%");
+    end,
+    61, "BAT0"
+)
 
 local cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, format_kv("CUP: ", "$1%"))
@@ -36,7 +55,7 @@ local memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem, format_kv("Mem: ", "$1%"), 13)
 
 local volwidget = wibox.widget.textbox()
-vicious.register(volwidget, vicious.widgets.volume, format_kv("$2 ", "$1%"), 2, "Master")
+vicious.register(volwidget, vicious.widgets.volume, format_kv("$2 ", "$1%"), 2, "PCM")
 -- }}}
 
 -- {{{ Wibox
@@ -131,7 +150,7 @@ for s = 1, screen.count() do
     right_layout:add(separator)
     right_layout:add(memwidget)
     right_layout:add(separator)
-    right_layout:add(batwidget)
+    right_layout:add(batwidget.widget)
     right_layout:add(separator)
     right_layout:add(datewidget)
     right_layout:add(separator)

@@ -32,7 +32,7 @@ theme.bg_widget       = "#000000"
 theme.fg_widget_label = "#737d8c"
 theme.fg_widget_value = theme.fg_normal
 theme.fg_widget_sep   = theme.fg_normal
-theme.fg_widget_clock = theme.border_focus
+theme.fg_widget_clock = "#999999"
 
 -- There are other variable sets
 -- overriding the default one when
