@@ -40,19 +40,19 @@ vicious.register(batwidget.widget, vicious.widgets.bat,
                 replaces_id = batwidget.lastid
             }).id
         end
-        return format_kv('Bat: ', level .. "%");
+        return format_kv('Bat:', state .. level .. "%");
     end,
     61, "BAT0"
 )
 
 local cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, format_kv("CUP: ", "$1%"))
+vicious.register(cpuwidget, vicious.widgets.cpu, format_kv("CUP:", "$1%"))
 
 local datewidget = wibox.widget.textbox()
 vicious.register(datewidget, vicious.widgets.date, format_str("%a %m/%d %R", beautiful.fg_widget_clock), 30)
 
 local memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, format_kv("Mem: ", "$1%"), 13)
+vicious.register(memwidget, vicious.widgets.mem, format_kv("Mem:", "$1%"), 13)
 
 local volwidget = wibox.widget.textbox()
 vicious.register(volwidget, vicious.widgets.volume, format_kv("$2 ", "$1%"), 2, "PCM")
@@ -98,14 +98,6 @@ mytasklist.buttons = awful.util.table.join(
                                               else
                                                   instance = awful.menu.clients({ width=250 })
                                               end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
                                           end))
 
 for s = 1, screen.count() do
