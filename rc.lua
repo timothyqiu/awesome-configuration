@@ -171,6 +171,16 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+
+    awful.key({ modkey }, "d", function ()
+                  awful.prompt.run(
+                      { prompt = "Dictionary: " },
+                      mypromptbox[mouse.screen].widget,
+                      function (words)
+                          awful.util.spawn_with_shell(terminal.." -e dict "..words)
+                      end
+                  )
+              end),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
